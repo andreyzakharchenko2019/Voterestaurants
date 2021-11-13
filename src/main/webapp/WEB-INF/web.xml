@@ -1,0 +1,29 @@
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+		 http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+
+    <display-name>Vote Restaurants</display-name>
+
+    <servlet>
+        <servlet-name>userServlet</servlet-name>
+        <servlet-class>com.andreyzakharchenko.voterestaurants.web.UserServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>userServlet</servlet-name>
+        <url-pattern>/users</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>restaurantsServlet</servlet-name>
+        <servlet-class>com.andreyzakharchenko.voterestaurants.web.RestaurantServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>restaurantsServlet</servlet-name>
+        <url-pattern>/restaurants</url-pattern>
+    </servlet-mapping>
+
+</web-app>
