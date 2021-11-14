@@ -17,10 +17,11 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!--DB-->
         <postgresql.version>42.3.1</postgresql.version>
+        <spring.version>5.3.13</spring.version>
     </properties>
 
     <build>
-        <finalName>topjava</finalName>
+        <finalName>voterestaurants</finalName>
         <defaultGoal>install</defaultGoal>
         <plugins>
             <plugin>
@@ -64,6 +65,20 @@
             <artifactId>postgresql</artifactId>
             <version>${postgresql.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>5.3.13</version>
+        </dependency>
+
+        <!-- Spring -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
     </dependencies>
 
 
