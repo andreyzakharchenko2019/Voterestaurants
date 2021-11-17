@@ -32,7 +32,6 @@ public class JdbcRestaurantRepository implements RestaurantRepository {
         this.insertRestaurant = new SimpleJdbcInsert(dataSource)
                 .withTableName("restaurants")
                 .usingGeneratedKeyColumns("id");
-
     }
 
     @Override
@@ -57,7 +56,7 @@ public class JdbcRestaurantRepository implements RestaurantRepository {
 
     @Override
     public boolean delete(int id, int userId) {
-        return false;
+        return jdbcTemplate.update("DELETE FROM restaurants WHERE id=?", id) != 0;
     }
 
     @Override

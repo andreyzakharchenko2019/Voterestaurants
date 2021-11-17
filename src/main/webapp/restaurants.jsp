@@ -9,6 +9,10 @@
 <hr>
 <h2>Restaurants</h2>
 
+<a href="meals?action=create">Add Meal</a>
+
+<br>
+
 <table border="1" cellpadding="8" cellspacing="0">
     <thead>
     <tr>

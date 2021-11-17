@@ -26,4 +26,14 @@
         <url-pattern>/restaurants</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>launchMenuServlet</servlet-name>
+        <servlet-class>com.andreyzakharchenko.voterestaurants.web.LaunchMenuServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>launchMenuServlet</servlet-name>
+        <url-pattern>/launch_menu</url-pattern>
+    </servlet-mapping>
+
 </web-app>

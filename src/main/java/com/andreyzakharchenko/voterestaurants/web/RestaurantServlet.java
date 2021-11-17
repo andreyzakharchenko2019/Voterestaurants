@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class RestaurantServlet extends HttpServlet {
 
@@ -34,9 +35,22 @@ public class RestaurantServlet extends HttpServlet {
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("restaurantServlet");
 
-        //request.setAttribute("restaurants", new ArrayList<>(Arrays.asList(new Restaurant(10446, "cev"), new Restaurant(1015416, "feeg"))));
-        request.setAttribute("restaurants", restaurantController.getAll());
-        request.getRequestDispatcher("/restaurants.jsp").forward(request, response);
+        String action = request.getParameter("action");
+        switch (action == null ? "all" : action) {
+            case "delete":
+                int id = getId(request);
+                restaurantController.delete(id);
+                response.sendRedirect("restaurants");
+                break;
+            case "all":
+            default:
+                request.setAttribute("restaurants", restaurantController.getAll());
+                request.getRequestDispatcher("/restaurants.jsp").forward(request, response);
+        }
+    }
 
+    private int getId(HttpServletRequest request) {
+        String paramId = Objects.requireNonNull(request.getParameter("id"));
+        return Integer.parseInt(paramId);
     }
 }

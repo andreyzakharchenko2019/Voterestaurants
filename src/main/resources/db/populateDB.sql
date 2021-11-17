@@ -25,13 +25,13 @@ VALUES ('Браво'),
        ('Жанар'),
        ('Траткир');
 
-INSERT INTO launch_menu (restaurants_id, name, price, date)
+INSERT INTO launch_menu (restaurant_id, name, price, date)
 VALUES (100002, 'Шашлык Свинина', 2000, '2021-11-14'),
        (100003, 'Шашлык Баранина', 2400, '2021-11-14'),
        (100004, 'Салат Цезарь', 1800, '2021-11-14'),
        (100005, 'Королевский салат', 1500, '2021-11-14'),
        (100006, 'Донер в лаваше', 1000, '2021-11-17');
 
-INSERT INTO vote_users (user_id, restaurants_id, date_vote)
+INSERT INTO vote_users (user_id, restaurant_id, date_vote)
 VALUES (100000, 100003, '2021-11-14'),
        (100001, 100006, '2021-11-17');

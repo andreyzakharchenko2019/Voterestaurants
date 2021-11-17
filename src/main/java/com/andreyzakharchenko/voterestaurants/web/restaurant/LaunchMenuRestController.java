@@ -1,30 +1,25 @@
 package com.andreyzakharchenko.voterestaurants.web.restaurant;
 
+import com.andreyzakharchenko.voterestaurants.model.LaunchMenu;
 import com.andreyzakharchenko.voterestaurants.model.Restaurant;
+import com.andreyzakharchenko.voterestaurants.service.LaunchMenuService;
 import com.andreyzakharchenko.voterestaurants.service.RestaurantService;
 import com.andreyzakharchenko.voterestaurants.util.SecurityUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
 @Controller
-public class RestaurantRestController {
+public class LaunchMenuRestController {
 
-    private final RestaurantService service;
+    private final LaunchMenuService service;
 
-    public RestaurantRestController(RestaurantService service) {
+    public LaunchMenuRestController(LaunchMenuService service) {
         this.service = service;
     }
 
-    public List<Restaurant> getAll() {
+    public List<LaunchMenu> getAll() {
         int userId = SecurityUtil.authUserId();
         return service.getAll(userId);
-    }
-
-    public void delete(int id) {
-        int userId = SecurityUtil.authUserId();
-        //log.info("delete meal {} for user {}", id, userId);
-        service.delete(id, userId);
     }
 }

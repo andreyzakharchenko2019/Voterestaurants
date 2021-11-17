@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.andreyzakharchenko.voterestaurants.util.ValidationUtil.checkNotFoundWithId;
+
 @Service
 public class RestaurantService {
 
@@ -17,5 +19,9 @@ public class RestaurantService {
 
     public List<Restaurant> getAll(int userId) {
         return repository.getAll(userId);
+    }
+
+    public void delete(int id, int userId) {
+        checkNotFoundWithId(repository.delete(id, userId), id);
     }
 }
