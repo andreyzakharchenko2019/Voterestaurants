@@ -26,7 +26,7 @@ public class RestaurantService {
         checkNotFoundWithId(repository.delete(id), id);
     }
 
-    public Restaurant get(int id, int userId) {
+    public Restaurant get(int id) {
         return checkNotFoundWithId(repository.get(id), id);
     }
 

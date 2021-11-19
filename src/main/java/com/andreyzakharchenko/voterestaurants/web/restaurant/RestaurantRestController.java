@@ -31,9 +31,8 @@ public class RestaurantRestController {
     }
 
     public Restaurant get(int id) {
-        int userId = SecurityUtil.authUserId();
         //log.info("get meal {} for user {}", id, userId);
-        return service.get(id, userId);
+        return service.get(id);
     }
 
     public void update(Restaurant restaurant, int id) {

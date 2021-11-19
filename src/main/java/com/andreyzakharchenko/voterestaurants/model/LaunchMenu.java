@@ -14,8 +14,12 @@ public class LaunchMenu extends AbstractNamedEntity {
     public LaunchMenu() {
     }
 
-    public LaunchMenu(Integer id, String name, Integer restaurant_id, double price, LocalDate date) {
+    public LaunchMenu(Integer id, String name) {
         super(id, name);
+    }
+
+    public LaunchMenu(String name, Integer restaurant_id, double price, LocalDate date) {
+        super(null, name);
         this.restaurant_id = restaurant_id;
         this.price = price;
         this.date = date;

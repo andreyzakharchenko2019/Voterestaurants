@@ -1,4 +1,4 @@
-package com.andreyzakharchenko.voterestaurants.web.restaurant;
+package com.andreyzakharchenko.voterestaurants.web.launchmenu;
 
 import com.andreyzakharchenko.voterestaurants.model.LaunchMenu;
 import com.andreyzakharchenko.voterestaurants.model.Restaurant;
@@ -19,7 +19,16 @@ public class LaunchMenuRestController {
     }
 
     public List<LaunchMenu> getAll() {
-        int userId = SecurityUtil.authUserId();
-        return service.getAll(userId);
+        return service.getAll();
+    }
+
+    public void delete(int id) {
+        //log.info("delete meal {} for user {}", id, userId);
+        service.delete(id);
+    }
+
+    public LaunchMenu get(int id) {
+        //log.info("get meal {} for user {}", id, userId);
+        return service.get(id);
     }
 }

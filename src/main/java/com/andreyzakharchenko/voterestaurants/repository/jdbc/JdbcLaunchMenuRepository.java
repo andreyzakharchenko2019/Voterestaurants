@@ -4,6 +4,7 @@ import com.andreyzakharchenko.voterestaurants.model.LaunchMenu;
 import com.andreyzakharchenko.voterestaurants.model.Restaurant;
 import com.andreyzakharchenko.voterestaurants.repository.LaunchMenuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -19,17 +20,15 @@ public class JdbcLaunchMenuRepository implements LaunchMenuRepository {
 
     private static final RowMapper<LaunchMenu> ROW_MAPPER = BeanPropertyRowMapper.newInstance(LaunchMenu.class);
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
-    @Autowired
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     private final SimpleJdbcInsert insertLaunchMenu;
 
     @Autowired
-    public JdbcLaunchMenuRepository(DataSource dataSource) {
-        this.insertLaunchMenu = new SimpleJdbcInsert(dataSource)
+    public JdbcLaunchMenuRepository(JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+        this.insertLaunchMenu = new SimpleJdbcInsert(jdbcTemplate)
                 .withTableName("launch_menu")
                 .usingGeneratedKeyColumns("id");
 
@@ -43,17 +42,19 @@ public class JdbcLaunchMenuRepository implements LaunchMenuRepository {
     }
 
     @Override
-    public boolean delete(int id, int userId) {
+    public boolean delete(int id) {
         return jdbcTemplate.update("DELETE FROM launch_menu WHERE id=?", id) != 0;
     }
 
     @Override
-    public LaunchMenu get(int id, int userId) {
-        return null;
+    public LaunchMenu get(int id) {
+        List<LaunchMenu> restaurants = jdbcTemplate.query(
+                "SELECT * FROM launch_menu WHERE id = ?", ROW_MAPPER, id);
+        return DataAccessUtils.singleResult(restaurants);
     }
 
     @Override
-    public List<LaunchMenu> getAll(int userId) {
+    public List<LaunchMenu> getAll() {
         return jdbcTemplate.query(
                 "SELECT * from launch_menu", ROW_MAPPER);
     }

@@ -21,19 +21,20 @@ public class JdbcRestaurantRepository implements RestaurantRepository {
 
     private static final RowMapper<Restaurant> ROW_MAPPER = BeanPropertyRowMapper.newInstance(Restaurant.class);
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
-    @Autowired
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     private final SimpleJdbcInsert insertRestaurant;
 
     @Autowired
-    public JdbcRestaurantRepository(DataSource dataSource) {
-        this.insertRestaurant = new SimpleJdbcInsert(dataSource)
+    public JdbcRestaurantRepository(JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+        this.insertRestaurant = new SimpleJdbcInsert(jdbcTemplate)
                 .withTableName("restaurants")
                 .usingGeneratedKeyColumns("id");
+
+        this.jdbcTemplate = jdbcTemplate;
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 
     @Override

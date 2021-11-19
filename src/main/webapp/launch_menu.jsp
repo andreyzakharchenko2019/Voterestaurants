@@ -9,6 +9,8 @@
 <hr>
 <h2>Menu</h2>
 
+<a href="launch_menu?action=create">Add dish</a>
+
 <table border="1" cellpadding="8" cellspacing="0">
     <thead>
     <tr>
@@ -16,6 +18,8 @@
         <th>Цена</th>
         <th>Ресторан</th>
         <th>Дата</th>
+        <th></th>
+        <th></th>
     </tr>
     </thead>
     <c:forEach items="${launch_menus}" var="launch_menu">
@@ -25,8 +29,8 @@
             <td>${launch_menu.price}</td>
             <td>${launch_menu.restaurant_id}</td>
             <td>${launch_menu.date}</td>
-            <td><a href="restaurants?action=update&id=${launch_menu.id}">Update</a></td>
-            <td><a href="restaurants?action=delete&id=${launch_menu.id}">Delete</a></td>
+            <td><a href="launch_menu?action=update&id=${launch_menu.id}">Update</a></td>
+            <td><a href="launch_menu?action=delete&id=${launch_menu.id}">Delete</a></td>
         </tr>
     </c:forEach>
 </table>
