@@ -3,6 +3,7 @@ package com.andreyzakharchenko.voterestaurants.service;
 import com.andreyzakharchenko.voterestaurants.model.Restaurant;
 import com.andreyzakharchenko.voterestaurants.repository.RestaurantRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.List;
 
@@ -21,7 +22,21 @@ public class RestaurantService {
         return repository.getAll(userId);
     }
 
-    public void delete(int id, int userId) {
-        checkNotFoundWithId(repository.delete(id, userId), id);
+    public void delete(int id) {
+        checkNotFoundWithId(repository.delete(id), id);
+    }
+
+    public Restaurant get(int id, int userId) {
+        return checkNotFoundWithId(repository.get(id), id);
+    }
+
+    public void update(Restaurant restaurant, int userId) {
+        Assert.notNull(restaurant, "restaurant must not be null");
+        checkNotFoundWithId(repository.save(restaurant), restaurant.id());
+    }
+
+    public Restaurant create(Restaurant restaurant) {
+        Assert.notNull(restaurant, "restaurant must not be null");
+        return repository.save(restaurant);
     }
 }

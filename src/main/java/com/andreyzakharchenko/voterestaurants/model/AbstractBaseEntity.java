@@ -1,5 +1,7 @@
 package com.andreyzakharchenko.voterestaurants.model;
 
+import org.springframework.util.Assert;
+
 public abstract class AbstractBaseEntity {
 
     public static final int START_SEQ = 100000;
@@ -23,6 +25,11 @@ public abstract class AbstractBaseEntity {
 
     public boolean isNew() {
         return this.id == null;
+    }
+
+    public int id() {
+        Assert.notNull(id, "Entity must have id");
+        return id;
     }
 
     @Override

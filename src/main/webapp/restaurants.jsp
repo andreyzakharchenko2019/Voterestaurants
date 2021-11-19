@@ -9,7 +9,7 @@
 <hr>
 <h2>Restaurants</h2>
 
-<a href="meals?action=create">Add Meal</a>
+<a href="restaurants?action=create">Add Restaurant</a>
 
 <br>
 
