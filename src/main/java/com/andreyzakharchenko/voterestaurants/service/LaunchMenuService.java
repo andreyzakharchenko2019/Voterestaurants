@@ -4,6 +4,7 @@ import com.andreyzakharchenko.voterestaurants.model.LaunchMenu;
 import com.andreyzakharchenko.voterestaurants.model.Restaurant;
 import com.andreyzakharchenko.voterestaurants.repository.LaunchMenuRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.List;
 
@@ -30,5 +31,14 @@ public class LaunchMenuService {
         return checkNotFoundWithId(repository.get(id), id);
     }
 
+    public void update(LaunchMenu launchMenu) {
+        Assert.notNull(launchMenu, "launchMenu must not be null");
+        checkNotFoundWithId(repository.save(launchMenu), launchMenu.id());
+    }
+
+    public LaunchMenu create(LaunchMenu launchMenu) {
+        Assert.notNull(launchMenu, "launchMenu must not be null");
+        return repository.save(launchMenu);
+    }
 
 }

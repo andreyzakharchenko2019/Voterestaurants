@@ -30,7 +30,7 @@ public class RestaurantService {
         return checkNotFoundWithId(repository.get(id), id);
     }
 
-    public void update(Restaurant restaurant, int userId) {
+    public void update(Restaurant restaurant) {
         Assert.notNull(restaurant, "restaurant must not be null");
         checkNotFoundWithId(repository.save(restaurant), restaurant.id());
     }

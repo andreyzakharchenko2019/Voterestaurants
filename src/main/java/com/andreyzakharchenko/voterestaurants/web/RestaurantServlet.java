@@ -61,7 +61,7 @@ public class RestaurantServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         System.out.println("restaurantServlet doPost");
         request.setCharacterEncoding("UTF-8");
         Restaurant restaurant = new Restaurant(

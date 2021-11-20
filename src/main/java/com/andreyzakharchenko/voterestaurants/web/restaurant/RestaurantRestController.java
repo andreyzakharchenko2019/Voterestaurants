@@ -36,10 +36,9 @@ public class RestaurantRestController {
     }
 
     public void update(Restaurant restaurant, int id) {
-        int userId = SecurityUtil.authUserId();
         //log.info("update {} for user {}", restaurant, userId);
         assureIdConsistent(restaurant, id);
-        service.update(restaurant, userId);
+        service.update(restaurant);
     }
 
     public Restaurant create(Restaurant restaurant) {

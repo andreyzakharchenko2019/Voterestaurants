@@ -13,6 +13,7 @@
     <jsp:useBean id="launchMenu" class="com.andreyzakharchenko.voterestaurants.model.LaunchMenu" scope="request"/>
     <form method="post" action="launch_menu">
         <input type="hidden" name="id" value="${launchMenu.id}">
+        <input type="hidden" name="restaurant_id" value="${launchMenu.restaurant_id}">
         <dl>
             <dt>Name:</dt>
             <dd><input type="text" value="${launchMenu.name}" name="name" required></dd>
@@ -22,7 +23,7 @@
             <dd><input type="number" step="0.1" value="${launchMenu.price}" size=40 name="price" required></dd>
         </dl>
         <dl>
-            <dt>DateTime:</dt>
+            <dt>Date:</dt>
             <dd><input type="date" value="${launchMenu.date}" name="date" required></dd>
         </dl>
         <button type="submit">Save</button>

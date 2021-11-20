@@ -9,6 +9,9 @@ import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
+import static com.andreyzakharchenko.voterestaurants.util.ValidationUtil.assureIdConsistent;
+import static com.andreyzakharchenko.voterestaurants.util.ValidationUtil.checkNew;
+
 @Controller
 public class LaunchMenuRestController {
 
@@ -30,5 +33,17 @@ public class LaunchMenuRestController {
     public LaunchMenu get(int id) {
         //log.info("get meal {} for user {}", id, userId);
         return service.get(id);
+    }
+
+    public void update(LaunchMenu launchMenu, int id) {
+        //log.info("update {} for user {}", restaurant, userId);
+        assureIdConsistent(launchMenu, id);
+        service.update(launchMenu);
+    }
+
+    public LaunchMenu create(LaunchMenu launchMenu) {
+        //log.info("create {} for user {}", launchMenu);
+        checkNew(launchMenu);
+        return service.create(launchMenu);
     }
 }

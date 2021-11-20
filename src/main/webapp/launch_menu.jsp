@@ -11,6 +11,8 @@
 
 <a href="launch_menu?action=create">Add dish</a>
 
+<br>
+
 <table border="1" cellpadding="8" cellspacing="0">
     <thead>
     <tr>

@@ -1,11 +1,13 @@
 package com.andreyzakharchenko.voterestaurants.web;
 
 import com.andreyzakharchenko.voterestaurants.model.LaunchMenu;
+import com.andreyzakharchenko.voterestaurants.model.Restaurant;
 import com.andreyzakharchenko.voterestaurants.web.launchmenu.LaunchMenuRestController;
 import javafx.util.converter.LocalDateTimeStringConverter;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.format.datetime.joda.LocalDateParser;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -55,8 +57,23 @@ public class LaunchMenuServlet extends HttpServlet {
                 request.setAttribute("launch_menus", launchMenuController.getAll());
                 request.getRequestDispatcher("/launch_menu.jsp").forward(request, response);
         }
+    }
 
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        LaunchMenu restaurant = new LaunchMenu(
+                request.getParameter("name"),
+                Integer.parseInt(request.getParameter("restaurant_id")),
+                Double.parseDouble(request.getParameter("price")),
+                LocalDate.parse(request.getParameter("date")));
 
+        if (StringUtils.hasLength(request.getParameter("id"))) {
+            launchMenuController.update(restaurant, getId(request));
+        } else {
+            launchMenuController.create(restaurant);
+        }
+        response.sendRedirect("launch_menu");
     }
 
     private int getId(HttpServletRequest request) {

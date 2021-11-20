@@ -6,7 +6,7 @@ import com.andreyzakharchenko.voterestaurants.model.Restaurant;
 import java.util.List;
 
 public interface LaunchMenuRepository {
-    LaunchMenu save(LaunchMenu launchMenu, int userId);
+    LaunchMenu save(LaunchMenu launchMenu);
 
     boolean delete(int id);
 

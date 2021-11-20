@@ -8,6 +8,7 @@ import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
@@ -37,8 +38,19 @@ public class JdbcLaunchMenuRepository implements LaunchMenuRepository {
     }
 
     @Override
-    public LaunchMenu save(LaunchMenu launchMenu, int userId) {
-        return null;
+    public LaunchMenu save(LaunchMenu launchMenu) {
+        BeanPropertySqlParameterSource parameterSource = new BeanPropertySqlParameterSource(launchMenu);
+
+        if (launchMenu.isNew()) {
+            Number newKey = insertLaunchMenu.executeAndReturnKey(parameterSource);
+            launchMenu.setId(newKey.intValue());
+        } else if (namedParameterJdbcTemplate.update(
+                "UPDATE launch_menu SET name=:name, " +
+                        "restaurant_id=:restaurant_id, " +
+                        "price=:price, date=:date WHERE id=:id", parameterSource) == 0) {
+            return null;
+        }
+        return launchMenu;
     }
 
     @Override
