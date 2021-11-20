@@ -36,4 +36,14 @@
         <url-pattern>/launch_menu</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>voteUsersServlet</servlet-name>
+        <servlet-class>com.andreyzakharchenko.voterestaurants.web.VoteUserServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>voteUsersServlet</servlet-name>
+        <url-pattern>/vote_user</url-pattern>
+    </servlet-mapping>
+
 </web-app>

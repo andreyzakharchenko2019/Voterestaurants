@@ -68,6 +68,6 @@ public class JdbcLaunchMenuRepository implements LaunchMenuRepository {
     @Override
     public List<LaunchMenu> getAll() {
         return jdbcTemplate.query(
-                "SELECT * from launch_menu", ROW_MAPPER);
+                "SELECT * from launch_menu order by date DESC", ROW_MAPPER);
     }
 }
