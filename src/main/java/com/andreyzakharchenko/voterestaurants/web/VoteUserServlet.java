@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class VoteUserServlet extends HttpServlet {
 
@@ -34,12 +35,12 @@ public class VoteUserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String action = request.getParameter("action");
         switch (action == null ? "all" : action) {
-            /*case "delete":
+            case "delete":
                 int id = getId(request);
-                launchMenuController.delete(id);
-                response.sendRedirect("launch_menu");
+                voteUserController.delete(id);
+                response.sendRedirect("vote_user");
                 break;
-            case "create":
+           /* case "create":
             case "update":
                 final LaunchMenu launchMenu = "create".equals(action) ?
                         new LaunchMenu("", 100004, 0.0, LocalDate.now().plusDays(1)) :
@@ -58,5 +59,10 @@ public class VoteUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
+    }
+
+    private int getId(HttpServletRequest request) {
+        String paramId = Objects.requireNonNull(request.getParameter("id"));
+        return Integer.parseInt(paramId);
     }
 }

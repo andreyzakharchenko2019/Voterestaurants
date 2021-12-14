@@ -30,10 +30,11 @@
         <tr>
             <td>${launch_menu.name}</td>
             <td>${launch_menu.price}</td>
-            <td>${launch_menu.restaurant_id}</td>
+            <td>${launch_menu.restaurant.name}</td>
             <td>${launch_menu.date}</td>
             <td><a href="launch_menu?action=update&id=${launch_menu.id}">Update</a></td>
             <td><a href="launch_menu?action=delete&id=${launch_menu.id}">Delete</a></td>
+            <td><a href="launch_menu?action=vote&id=${launch_menu.id}&datevote=${launch_menu.date}">Select</a></td>
         </tr>
     </c:forEach>
 </table>

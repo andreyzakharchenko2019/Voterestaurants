@@ -33,7 +33,7 @@ public class JdbcVoteUserRepository implements VoteUserRepository {
     }
 
     @Override
-    public VoteUser save(VoteUser voteUser, int userId) {
+    public VoteUser save(VoteUser voteUser, int userId, int launchId) {
         return null;
     }
 

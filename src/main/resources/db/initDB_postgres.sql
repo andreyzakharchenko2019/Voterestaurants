@@ -35,19 +35,21 @@ CREATE TABLE restaurants
 CREATE TABLE launch_menu
 (
     id            INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-    restaurant_id INTEGER NOT NULL,
-    name          VARCHAR NOT NULL,
-    price         DECIMAL NOT NULL,
-    date          DATE    NOT NULL,
+    restaurant_id INTEGER   NOT NULL,
+    name          VARCHAR   NOT NULL,
+    price         DECIMAL   NOT NULL,
+    date          TIMESTAMP NOT NULL,
     FOREIGN KEY (restaurant_id) REFERENCES restaurants (id) ON DELETE CASCADE
 );
 
 CREATE TABLE vote_users
 (
-    user_id   INTEGER NOT NULL,
-    launch_id INTEGER NOT NULL,
-    date_vote DATE    NOT NULL,
-    FOREIGN KEY (launch_id) REFERENCES launch_menu (id) ON DELETE CASCADE
+    id        INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+    user_id   INTEGER   NOT NULL,
+    launch_id INTEGER   NOT NULL,
+    date_vote TIMESTAMP NOT NULL,
+    FOREIGN KEY (launch_id) REFERENCES launch_menu (id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 CREATE UNIQUE INDEX vote_users_unique_user_date_vote_idx ON vote_users (user_id, date_vote);
 

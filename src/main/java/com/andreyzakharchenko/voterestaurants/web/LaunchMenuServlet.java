@@ -2,8 +2,10 @@ package com.andreyzakharchenko.voterestaurants.web;
 
 import com.andreyzakharchenko.voterestaurants.model.LaunchMenu;
 import com.andreyzakharchenko.voterestaurants.model.Restaurant;
+import com.andreyzakharchenko.voterestaurants.model.VoteUser;
 import com.andreyzakharchenko.voterestaurants.web.launchmenu.LaunchMenuRestController;
-import javafx.util.converter.LocalDateTimeStringConverter;
+import com.andreyzakharchenko.voterestaurants.web.restaurant.RestaurantRestController;
+import com.andreyzakharchenko.voterestaurants.web.voteuser.VoteUserRestController;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.format.datetime.joda.LocalDateParser;
@@ -15,17 +17,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class LaunchMenuServlet extends HttpServlet {
 
     private ConfigurableApplicationContext springContext;
     private LaunchMenuRestController launchMenuController;
+    private RestaurantRestController restaurantRestController;
+    private VoteUserRestController voteUserRestController;
 
     @Override
     public void init() {
         springContext = new ClassPathXmlApplicationContext("spring/spring-app.xml", "spring/spring-db.xml");
         launchMenuController = springContext.getBean(LaunchMenuRestController.class);
+        restaurantRestController = springContext.getBean(RestaurantRestController.class);
+        voteUserRestController = springContext.getBean(VoteUserRestController.class);
     }
 
     @Override
@@ -46,14 +53,19 @@ public class LaunchMenuServlet extends HttpServlet {
             case "create":
             case "update":
                 final LaunchMenu launchMenu = "create".equals(action) ?
-                        new LaunchMenu("", 100004, 0.0, LocalDate.now().plusDays(1)) :
+                        new LaunchMenu("", null, 1.0, LocalDate.now().plusDays(1)) :
                         launchMenuController.get(getId(request));
                 request.setAttribute("launchMenu", launchMenu);
+                request.setAttribute("restaurants", restaurantRestController.getAll());
                 request.getRequestDispatcher("/launch_menuForm.jsp").forward(request, response);
                 System.out.println(launchMenu);
                 break;
             case "all":
-            default:
+                request.setAttribute("launch_menus", launchMenuController.getAll());
+                request.getRequestDispatcher("/launch_menu.jsp").forward(request, response);
+                break;
+            case "vote":
+                voteUserRestController.create(new VoteUser(LocalDate.parse(request.getParameter("datevote"))), Integer.parseInt(request.getParameter("id")));
                 request.setAttribute("launch_menus", launchMenuController.getAll());
                 request.getRequestDispatcher("/launch_menu.jsp").forward(request, response);
         }
@@ -64,8 +76,8 @@ public class LaunchMenuServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         LaunchMenu restaurant = new LaunchMenu(
                 request.getParameter("name"),
-                Integer.parseInt(request.getParameter("restaurant_id")),
-                Double.parseDouble(request.getParameter("price")),
+                new Restaurant(Integer.parseInt(request.getParameter("restaurant_id"))),
+                Double.parseDouble(request.getParameter("price").replace(",", ".")),
                 LocalDate.parse(request.getParameter("date")));
 
         if (StringUtils.hasLength(request.getParameter("id"))) {

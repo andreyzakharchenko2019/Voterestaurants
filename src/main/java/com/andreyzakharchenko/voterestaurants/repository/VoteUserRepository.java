@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface VoteUserRepository {
     // null if updated meal do not belong to userId
-    VoteUser save(VoteUser voteUser, int userId);
+    VoteUser save(VoteUser voteUser, int userId, int launchId);
 
     // false if meal do not belong to userId
     boolean delete(int id, int userId);

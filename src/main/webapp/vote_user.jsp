@@ -25,10 +25,12 @@
     <c:forEach items="${voteUser}" var="voteUser">
         <jsp:useBean id="voteUser" type="com.andreyzakharchenko.voterestaurants.model.VoteUser"/>
         <tr>
-            <td>${voteUser.launch_id}</td>
+            <td>${voteUser.launchMenu.name}</td>
+            <td>${voteUser.launchMenu.price}</td>
+            <td>${voteUser.launchMenu.restaurant.name}</td>
             <td>${voteUser.date_vote}</td>
-            <%--<td><a href="launch_menu?action=update&id=${voteUser.id}">Update</a></td>
-            <td><a href="launch_menu?action=delete&id=${voteUser.id}">Delete</a></td>--%>
+            <%--<td><a href="launch_menu?action=update&id=${voteUser.id}">Update</a></td>--%>
+            <td><a href="vote_user?action=delete&id=${voteUser.id}">Delete</a></td>
         </tr>
     </c:forEach>
 </table>

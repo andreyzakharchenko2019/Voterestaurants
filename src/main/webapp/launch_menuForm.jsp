@@ -12,8 +12,15 @@
     <h2>${param.action == 'create' ? 'Create dish' : 'Edit dish'}</h2>
     <jsp:useBean id="launchMenu" class="com.andreyzakharchenko.voterestaurants.model.LaunchMenu" scope="request"/>
     <form method="post" action="launch_menu">
+        <select name="restaurant_id">
+            <c:forEach items="${restaurants}" var="restaurant">
+                <jsp:useBean id="restaurant" class="com.andreyzakharchenko.voterestaurants.model.Restaurant"
+                             scope="request"/>
+                <option value="${restaurant.id}">${restaurant.name}</option>
+            </c:forEach>
+        </select>
+
         <input type="hidden" name="id" value="${launchMenu.id}">
-        <input type="hidden" name="restaurant_id" value="${launchMenu.restaurant_id}">
         <dl>
             <dt>Name:</dt>
             <dd><input type="text" value="${launchMenu.name}" name="name" required></dd>
