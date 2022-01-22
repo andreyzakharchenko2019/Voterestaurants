@@ -1,5 +1,6 @@
 package com.andreyzakharchenko.voterestaurants.web;
 
+import com.andreyzakharchenko.voterestaurants.Profiles;
 import com.andreyzakharchenko.voterestaurants.model.LaunchMenu;
 import com.andreyzakharchenko.voterestaurants.model.Restaurant;
 import com.andreyzakharchenko.voterestaurants.model.VoteUser;
@@ -22,14 +23,23 @@ import java.util.Objects;
 
 public class LaunchMenuServlet extends HttpServlet {
 
-    private ConfigurableApplicationContext springContext;
+    private ClassPathXmlApplicationContext springContext;
     private LaunchMenuRestController launchMenuController;
     private RestaurantRestController restaurantRestController;
     private VoteUserRestController voteUserRestController;
 
     @Override
     public void init() {
-        springContext = new ClassPathXmlApplicationContext("spring/spring-app.xml", "spring/spring-db.xml");
+        // Without profiles
+        /*springContext = new ClassPathXmlApplicationContext("spring/spring-app.xml", "spring/spring-db.xml");
+        launchMenuController = springContext.getBean(LaunchMenuRestController.class);
+        restaurantRestController = springContext.getBean(RestaurantRestController.class);
+        voteUserRestController = springContext.getBean(VoteUserRestController.class);*/
+        //With profiles
+        springContext = new ClassPathXmlApplicationContext(new String[]{"spring/spring-app.xml", "spring/spring-db.xml"}, false);
+        //springContext.setConfigLocations("spring/spring-app.xml", "spring/spring-db.xml");
+        springContext.getEnvironment().setActiveProfiles(Profiles.getActiveDbProfile(), Profiles.REPOSITORY_IMPLEMENTATION);
+        springContext.refresh();
         launchMenuController = springContext.getBean(LaunchMenuRestController.class);
         restaurantRestController = springContext.getBean(RestaurantRestController.class);
         voteUserRestController = springContext.getBean(VoteUserRestController.class);

@@ -1,5 +1,6 @@
 package com.andreyzakharchenko.voterestaurants.web;
 
+import com.andreyzakharchenko.voterestaurants.Profiles;
 import com.andreyzakharchenko.voterestaurants.model.Restaurant;
 import com.andreyzakharchenko.voterestaurants.web.restaurant.RestaurantRestController;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -18,13 +19,15 @@ import java.util.Objects;
 
 public class RestaurantServlet extends HttpServlet {
 
-    private ConfigurableApplicationContext springContext;
+    private ClassPathXmlApplicationContext springContext;
     private RestaurantRestController restaurantController;
 
     @Override
     public void init() {
-        System.out.println("init");
-        springContext = new ClassPathXmlApplicationContext("spring/spring-app.xml", "spring/spring-db.xml");
+        springContext = new ClassPathXmlApplicationContext(new String[]{"spring/spring-app.xml", "spring/spring-db.xml"}, false);
+        //springContext.setConfigLocations("spring/spring-app.xml", "spring/spring-db.xml");
+        springContext.getEnvironment().setActiveProfiles(Profiles.getActiveDbProfile(), Profiles.REPOSITORY_IMPLEMENTATION);
+        springContext.refresh();
         restaurantController = springContext.getBean(RestaurantRestController.class);
     }
 

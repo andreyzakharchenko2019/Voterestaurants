@@ -3,9 +3,11 @@ package com.andreyzakharchenko.voterestaurants.repository.datajpa;
 import com.andreyzakharchenko.voterestaurants.model.LaunchMenu;
 import com.andreyzakharchenko.voterestaurants.repository.LaunchMenuRepository;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class DataJpaLaunchMenuRepository implements LaunchMenuRepository {
     private static final Sort SORT_DATE = Sort.by(Sort.Direction.DESC, "date");
 

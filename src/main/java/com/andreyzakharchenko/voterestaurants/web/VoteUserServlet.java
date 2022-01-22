@@ -1,5 +1,6 @@
 package com.andreyzakharchenko.voterestaurants.web;
 
+import com.andreyzakharchenko.voterestaurants.Profiles;
 import com.andreyzakharchenko.voterestaurants.model.LaunchMenu;
 import com.andreyzakharchenko.voterestaurants.web.launchmenu.LaunchMenuRestController;
 import com.andreyzakharchenko.voterestaurants.web.voteuser.VoteUserRestController;
@@ -16,12 +17,15 @@ import java.util.Objects;
 
 public class VoteUserServlet extends HttpServlet {
 
-    private ConfigurableApplicationContext springContext;
+    private ClassPathXmlApplicationContext springContext;
     private VoteUserRestController voteUserController;
 
     @Override
     public void init() {
-        springContext = new ClassPathXmlApplicationContext("spring/spring-app.xml", "spring/spring-db.xml");
+        springContext = new ClassPathXmlApplicationContext(new String[]{"spring/spring-app.xml", "spring/spring-db.xml"}, false);
+        //springContext.setConfigLocations("spring/spring-app.xml", "spring/spring-db.xml");
+        springContext.getEnvironment().setActiveProfiles(Profiles.getActiveDbProfile(), Profiles.REPOSITORY_IMPLEMENTATION);
+        springContext.refresh();
         voteUserController = springContext.getBean(VoteUserRestController.class);
     }
 
